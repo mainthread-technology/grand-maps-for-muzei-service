@@ -1,0 +1,21 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+}
+
+<div class="col-sm-6 col-sm-offset-3">
+    <div class="panel panel-danger">
+        <div class="panel-body">
+            <img src="@Url.Content("~/Content/Images/Error.jpg")" class="img-responsive center-block" />
+        </div>
+        <div class="panel-footer">
+            Please <a href="@Request.UrlReferrer.ToString()">try going back</a> or bug Sam for a fix.
+
+            @if (Model != null)
+            {
+                <pre style="margin-top: 10px; word-wrap: normal;">@Model.Exception</pre>
+            }
+        </div>
+    </div>
+</div>

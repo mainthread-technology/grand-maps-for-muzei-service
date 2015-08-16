@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<div class="row" style="display: flexbox; align-self: center;">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="input-group">
+                        <input type="password" name="Password" class="form-control" placeholder="pre-shared key" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">Login</button>
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

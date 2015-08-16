@@ -1,0 +1,76 @@
+﻿@using Server.Framework.Entities;
+
+@model MapEntity
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.PartitionKey)
+        @Html.HiddenFor(model => model.RowKey)
+        @Html.HiddenFor(model => model.ETag)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                <span class="help-block">@Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "form-control" } })
+                <span class="help-block">@Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control" } })
+                <span class="help-block">@Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImageAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ImageAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @if (ViewContext.RouteData.Values["action"] as string == "Create")
+                {
+                <span class="help-block"><span class="glyphicon glyphicon-cloud-upload"></span> This image will be uploaded to Azure Storage.</span>
+                }
+                <span class="help-block">@Html.ValidationMessageFor(model => model.ImageAddress, "", new { @class = "text-danger" })</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReferenceAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ReferenceAddress, new { htmlAttributes = new { @class = "form-control" } })
+                <span class="help-block">@Html.ValidationMessageFor(model => model.ReferenceAddress, "", new { @class = "text-danger" })</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2", style = "padding-top: 0;" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IsActive)
+                @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-xs-6 col-md-4">
+                @Html.ActionLink("Cancel", "Index", new { controller = "Main" }, new { @class = "btn btn-default" })
+            </div>
+            <div class="col-xs-6 text-right">
+                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-cloud-upload"></span> Save</button>
+            </div>
+        </div>
+    </div>
+}

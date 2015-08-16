@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Analytics";
+}
+
+<h2 id="today">Today</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <p id="featured-today"></p>
+    </div>
+
+    <div class="col-md-6">
+        <p id="random-today"></p>
+    </div>
+</div>
+
+<h2 id="month">Month</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <p id="featured-month"></p>
+    </div>
+
+    <div class="col-md-6">
+        <p id="random-month"></p>
+    </div>
+</div>
+
+<script src="https://d26b395fwzu5fz.cloudfront.net/latest/keen.min.js"></script>
+
+<script type="text/javascript">
+    var client = new Keen({
+        projectId: "",
+        readKey: ""
+    });
+
+    Keen.ready(function () {
+        var featuredToday = new Keen.Query("count", {
+            eventCollection: "api.public.get.featured",
+            timeframe: "today"
+        });
+
+        client.draw(featuredToday, $("#featured-today")[0], { title: "Total Featured Requests", width: "auto", height: 120 });
+
+        var randomToday = new Keen.Query("count", {
+            eventCollection: "api.public.get.random",
+            timeframe: "today"
+        });
+
+        client.draw(randomToday, $("#random-today")[0], { title: "Total Random Requests", width: "auto", height: 120 });
+
+        var featuredMonth = new Keen.Query("count", {
+            eventCollection: "api.public.get.featured",
+            timeframe: "this_1_months"
+        });
+
+        client.draw(featuredMonth, $("#featured-month")[0], { title: "Total Featured Requests", width: "auto", height: 120 });
+
+        var randomMonth = new Keen.Query("count", {
+            eventCollection: "api.public.get.random",
+            timeframe: "this_1_months"
+        });
+
+        client.draw(randomMonth, $("#random-month")[0], { title: "Total Random Requests", width: "auto", height: 120 });
+    });
+</script>

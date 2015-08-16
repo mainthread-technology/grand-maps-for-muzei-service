@@ -1,0 +1,63 @@
+﻿@using Server.Admin.Extensions
+
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>@ViewBag.Title &bull; Grand Maps Admin</title>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+
+    @*@Styles.Render("~/Content/Style")*@
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script async src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <link rel="icon" type="image/png" href="@Url.Content("~/Content/Images/Icon.png")" />
+</head>
+<body>
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                @if (Request.Cookies.Get("Authentication") != null)
+                {
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                }
+                <a href="/Home/Index" class="navbar-brand">Grand Maps Admin <sup><span class="label label-info">beta</span></sup></a>
+            </div>
+
+            @if (Request.Cookies.Get("Authentication") != null)
+            {
+                string controller = ViewContext.RouteData.Values["controller"].ToString();
+                string action = ViewContext.RouteData.Values["action"].ToString();
+
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li class="@((controller == "Main") ? "active" : "")">@Html.ActionLink("Main", "Index", "Main")</li>
+                        <li class="@((controller == "Featured") ? "active" : "")">@Html.ActionLink("Featured", "Index", "Featured")</li>
+                        <li class="@((controller == "Home" && action == "Analytics") ? "active" : "")"><a href="/Home/Analytics">Analytics <span class="label label-default">new</span></a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="container">
+        @Html.DisplayAlerts()
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+</body>
+</html>

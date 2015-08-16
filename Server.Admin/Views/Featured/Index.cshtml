@@ -1,0 +1,78 @@
+﻿@using Server.Framework.Entities;
+
+@model IEnumerable<MapEntity>
+
+@{
+    ViewBag.Title = "Featured Maps";
+}
+
+<div class="row">
+    <div class="col-sm-6">
+        <h2>@Model.Count().ToString("N0") <small>featured maps in total</small></h2>
+    </div>
+
+    <div class="col-sm-6 text-right">
+        <p class="h2">@Html.ActionLink("Feature Random Maps", "SetRandom", new { controller = "Featured" }, new { @class = "btn btn-default btn-block-sm", title = "Feature random maps for the next 7 days." })</p>
+    </div>
+</div>
+
+<hr />
+    
+@*<ul class="pager">
+    <li class="previous"><a href="#">&larr; Older</a></li>
+    <li class="next"><a href="#">Next &rarr;</a></li>
+</ul>*@
+
+<div class="table-responsive clearfix">
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th class="text-center" style="vertical-align: middle;">
+                    @Html.DisplayNameFor(model => model.FeaturedDate)
+                </th>
+                <th style="vertical-align: middle;">
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th style="vertical-align: middle;">
+                    @Html.DisplayNameFor(model => model.Author)
+                </th>
+                <th class="text-center" style="vertical-align: middle;" colspan="2"></th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tr id="@item.RowKey" class="@(DateTime.UtcNow.Date.ToString("yyyy-MM-dd") == item.FeaturedDate ? "info" : string.Empty)">
+                <td class="text-center" style="vertical-align: middle;">
+                    @item.FeaturedDate
+                </td>
+
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td class="text-center" style="min-width: 147px; vertical-align: middle;">
+                    <a href="@item.ImageAddress" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-picture"></span> Image</a>
+                    <a href="@item.ReferenceAddress" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-link"></span> Source</a>
+                </td>
+                <td class="text-center" style="min-width: 96px; vertical-align: middle;">
+                    <div class="btn-group btn-group-xs">
+                        @Html.ActionLink("Edit", "Edit", new { row = item.RowKey }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", new { row = item.RowKey }, new { @class = "btn btn-primary" })
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>
+    
+@*<ul class="pager">
+    <li class="previous"><a href="#">&larr; Older</a></li>
+    <li class="next"><a href="#">Next &rarr;</a></li>
+</ul>*@
+
+@Html.Partial("_PreviewModalPartial")
