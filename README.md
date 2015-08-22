@@ -2,6 +2,9 @@
 
 The service powering Grand Maps for Muzei.
 
+## Android Client
+You can find the source for the Android Grand Maps client in this repo: [github.com/mainthread-technology/grand-maps-for-muzei](https://github.com/mainthread-technology/grand-maps-for-muzei)
+
 # API Reference
 
 ### **`GET map`**
